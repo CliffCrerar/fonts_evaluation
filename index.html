@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Font evaluation</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Archivo|Archivo+Black|Carme|Dosis|Fredoka+One|Michroma|Quicksand|Racing+Sans+One|Russo+One|Syncopate|Varela+Round|Baloo+Chettan|Biryani|Days+One|Do+Hyeon|Exo+2|Fugaz+One|Hammersmith+One|Merriweather+Sans|Mitr|Monda|Paytone+One|Prompt|Prosto+One|Ubuntu);
+
+        body {
+            position: relative;
+            height: auto;
+            width: 100vs;
+            margin: 0;
+        }
+
+        body::children {
+            padding: 2vw 0;
+        }
+
+        .div1 {
+            padding: 10px 30px;
+            background-color: #1976D2;
+        }
+
+        .div1 h1 {
+            color: white;
+            display: block;
+            width: auto;
+            text-align: justify;
+        }
+
+        div {
+            position: relative;
+            height: auto;
+        }
+
+        .font-buttons {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+
+        }
+
+        .font-btn {
+            padding: 5px 2px !important;
+            margin: 5px 1px;
+            width: 15vw;
+            border: 3px;
+        }
+
+        .font-btn:selected {
+            background: black;
+            color: white;
+        }
+
+        /* .font-btn:hover {
+            color: grey;
+            background: #37474F;
+        } */
+
+        .selection-display {
+            margin: 20px;
+        }
+
+        .font-selected {
+            color: green;
+        }
+
+        .div1 {
+            position: relative;
+            width: 100%;
+            color: black;
+            text-align: justify;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .text-input {
+            text-align: center;
+            position: relative;
+            margin: 30px 10px;
+            width: 80%;
+            font-size: 1.4em !important;
+        }
+
+        .display-proof-opts {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-content: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="1" class="div1">
+        <h1>Google font checker</h1>
+    </div>
+    <form class="d-flex flex-row justify-items-around align-items-center">
+        <textarea id="textInput" class="text-input" type="text" placeholder="type here" row="10">
+            Silver mist suffused the deck of the ship.
+        </textarea>
+
+        <h2>
+            <span id="fontCount"></span>
+            <span>Fonts</span>
+        </h2>
+
+    </form>
+    <div id="2"></div>
+    <div id="fonts" class="font-buttons"></div>
+    <div class="display-proof-opts">
+        <h2 class="selection-display">
+            <span>Selected:</span>
+            <span id="fs" class="font-selected"></span>
+        </h2>
+        <h3>Framework standards</h3>
+    </div>
+    <div class="frameworks">
+    </div>
+    <hr />
+    <div class="proof-elements">
+        <div id="bootstrap" class="container">
+            <h1 data-fontsize="6em"></h1>
+            <h2 data-fontsize="5.5em"></h2>
+            <h3 data-fontsize="4.5em"></h3>
+            <h4 data-fontsize="3.5em"></h4>
+            <h5></h5>
+            <h6></h6>
+            <a href="#"></a>
+            <p></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $('#body').css('width', window.innerWidth);
+
+        var str1 =
+            "Archivo|Archivo+Black|Carme|Dosis|Fredoka+One|Michroma|Quicksand|Racing+Sans+One|Russo+One|Syncopate|Varela+Round|Baloo+Chettan|Biryani|Days+One|Do+Hyeon|Exo+2|Fugaz+One|Hammersmith+One|Merriweather+Sans|Mitr|Monda|Paytone+One|Prompt|Prosto+One|Ubuntu";
+
+        var frameworks = ['material-ui', 'Bootstrap5', 'materialize-css'];
+
+        str1.split('|').forEach((font, i) => {
+            var fontName = font.replace('+', ' ');
+            $('#fonts').append(`<button id="fb-${i}" class="btn btn-outline-default font-btn">${fontName}</button>`);
+            $('#fontCount').text(i);
+        })
+
+        $('.font-btn').click(function (ev) {
+            var font = ev.target.innerText;
+            var parentContainer = $('#bootstrap');
+            parentContainer.empty();
+            console.log('font: ', font);
+            $('#fs').text(font);
+            insertText(font, parentContainer);
+        });
+
+        function insertText(font, parentContainer) {
+            var text = $('#textInput').val();
+            if (['', undefined, null].includes(text)) return;
+            parentContainer.children().each((i, ch) => {
+                const chEl = $(ch);
+                console.log('chEl: ', chEl);
+                if (ch.hasAttribute(['data-fontsize'])) {
+                    console.log('has large display attr');
+                    const largeFontSize = chEl.attr('data-fontsize');
+                    console.log('largeFontSize: ', largeFontSize);
+                    const largeClone = chEl
+                        .clone()
+                        .css('font-family', font)
+                        .css('font-size', largeFontSize)
+                        .text(`LC: ${text}`);
+                    parentContainer.append(largeClone);
+                    console.log('parentContainer: ', parentContainer);
+                    console.log('largeClone: ', largeClone);
+                }
+                chEl.css('font-family', font).text(`NE: ${text}`);
+                //chEl.innerText = `${ch.localName}: ${text}`;
+
+            })
+        }
+
+    </script>
+</body>
+
+</html>
