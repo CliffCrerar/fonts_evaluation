@@ -159,9 +159,15 @@
 
         str1.split('|').forEach((font, i) => {
             var fontName = font.replace('+', ' ');
-            $('#fonts').append(`<button id="fb-${i}" class="btn btn-outline-default font-btn">${fontName}</button>`);
+            $('#fonts').append(`<button id="fb-${i}" class="btn btn-outline-primary font-btn">${fontName}</button>`);
             $('#fontCount').text(i);
         })
+
+        const asyncExec = (functionToRun) => {
+            return new Promise(resole,reject){
+                
+            }
+        }
 
         $('.font-btn').click(function (ev) {
             var font = ev.target.innerText;
@@ -173,9 +179,12 @@
         });
 
         function insertText(font, parentContainer) {
+            console.log('parentContainer: ', parentContainer);
             var text = $('#textInput').val();
+            console.log('text: ', text);
             if (['', undefined, null].includes(text)) return;
             parentContainer.children().each((i, ch) => {
+                console.log('parentContainer: ', parentContainer);
                 const chEl = $(ch);
                 console.log('chEl: ', chEl);
                 if (ch.hasAttribute(['data-fontsize'])) {
@@ -192,10 +201,11 @@
                     console.log('largeClone: ', largeClone);
                 }
                 chEl.css('font-family', font).text(`NE: ${text}`);
-                //chEl.innerText = `${ch.localName}: ${text}`;
-
+                chEl.innerText = `${ch.localName}: ${text}`;
             })
         }
+
+
 
     </script>
 </body>
