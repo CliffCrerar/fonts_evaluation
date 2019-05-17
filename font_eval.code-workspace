@@ -9,6 +9,8 @@
 		"cSpell.words": [
 			"crossorigin"
 		],
-		"git.ignoreLimitWarning": true
+		"git.ignoreLimitWarning": true,
+		"better-comments.highlightPlainText": true,
+		"jsFileHeader.Author": "Cliff Crerar"
 	}
 }
